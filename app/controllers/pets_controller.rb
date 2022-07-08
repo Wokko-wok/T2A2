@@ -1,5 +1,7 @@
 class PetsController < ApplicationController
-  # before_action :authenticate_user, except: [:home, :show]
+  before_action :authenticate_user!, except: [:home, :show]
+  def home
+  end
 
   def index
     @available_pets = Pet.available_pets
