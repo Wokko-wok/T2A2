@@ -6,7 +6,9 @@ class CreatePets < ActiveRecord::Migration[7.0]
       t.integer :age
       t.integer :price
       t.string :name
-
+      t.string :description
+      t.boolean :sold, default: false
+      
       t.timestamps
     end
   end
