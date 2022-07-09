@@ -4,7 +4,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :listings
-  has_many :pets
   has_many :purchases
-  has_many :purchased_pets, through: :purchases, source: :pet
+  has_many :purchased_listings, through: :purchases, source: :listing
 end

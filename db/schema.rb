@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_08_054940) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_08_045911) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -57,6 +57,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_08_054940) do
     t.string "species"
     t.integer "age"
     t.integer "price"
+    t.string "description"
     t.boolean "sold", default: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
@@ -64,25 +65,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_08_054940) do
     t.index ["user_id"], name: "index_listings_on_user_id"
   end
 
-  create_table "pets", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "species"
-    t.integer "age"
-    t.integer "price"
-    t.string "name"
-    t.string "description"
-    t.boolean "sold", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_pets_on_user_id"
-  end
-
   create_table "purchases", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "pet_id", null: false
+    t.bigint "listing_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["pet_id"], name: "index_purchases_on_pet_id"
+    t.index ["listing_id"], name: "index_purchases_on_listing_id"
     t.index ["user_id"], name: "index_purchases_on_user_id"
   end
 
@@ -102,7 +90,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_08_054940) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "listings", "users"
-  add_foreign_key "pets", "users"
-  add_foreign_key "purchases", "pets"
+  add_foreign_key "purchases", "listings"
   add_foreign_key "purchases", "users"
 end

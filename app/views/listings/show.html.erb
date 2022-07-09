@@ -6,7 +6,10 @@
   <% else %>
     <%= image_tag "https://placekitten.com/400/500", alt: @listing.name, style: "object-fit: cover; width: 100px; height: 100px" %>
   <% end %>
-<p>
+
+  <%= button_to "Purchase", place_order_path%>
+
+  <p>
     <strong>Species:</strong>
     <%= @listing.species %>
   </p>
