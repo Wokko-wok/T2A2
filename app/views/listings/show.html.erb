@@ -2,9 +2,9 @@
 
 <div>
   <% if @listing.picture.attached? %>
-    <%= image_tag @listing.picture.variant(resize_to_limit: [100, 100]) , alt: @listing.name%>
+    <%= image_tag @listing.picture, alt: @listing.name, style: "object-fit: cover; width: 100px; height: 100px" %>
   <% else %>
-    <%= image_tag "https://placekitten.com/400/500", alt: @listing.name %>
+    <%= image_tag "https://placekitten.com/400/500", alt: @listing.name, style: "object-fit: cover; width: 100px; height: 100px" %>
   <% end %>
 <p>
     <strong>Species:</strong>
