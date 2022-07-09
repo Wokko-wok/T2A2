@@ -1,5 +1,8 @@
 class ListingsController < ApplicationController
   before_action :set_listing, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authorize_user, only: [:edit, :update, :destroy]
+
 
   # GET /listings or /listings.json
   def index
@@ -22,6 +25,7 @@ class ListingsController < ApplicationController
   # POST /listings or /listings.json
   def create
     @listing = Listing.new(listing_params)
+    @listing.user = current_user
 
     respond_to do |format|
       if @listing.save
@@ -63,6 +67,12 @@ class ListingsController < ApplicationController
       @listing = Listing.find(params[:id])
     end
 
+    def authorize_user
+      if @listing.user_id != current_user.id
+        flash[:alert] = "Only the Owner can do that!"
+        redirect_to listings_path
+      end
+    end
     # Only allow a list of trusted parameters through.
     def listing_params
       params.require(:listing).permit(:user_id, :species, :age, :price, :name, :description, :sold)

@@ -6,9 +6,9 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 me = User.create(
-    name: 'Nic Jensen',
+    username: 'Nic Jensen',
     email: 'NicolasJensen9@gmail.com',
-    password_hash: 'Password01!'
+    password: 'Password01!'
   )
   
   Pet.create(

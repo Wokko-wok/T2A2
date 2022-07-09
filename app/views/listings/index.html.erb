@@ -1,14 +1,12 @@
 <p style="color: green"><%= notice %></p>
 
 <h1>Listings</h1>
+<%= link_to "Create New listing", new_listing_path %>
 
-<div id="listings">
+<div id="listings" style="display:flex;justify-content:space-evenly;">
   <% @listings.each do |listing| %>
     <%= render listing %>
-    <p>
-      <%= link_to "Show this listing", listing %>
-    </p>
   <% end %>
 </div>
 
-<%= link_to "New listing", new_listing_path %>
+

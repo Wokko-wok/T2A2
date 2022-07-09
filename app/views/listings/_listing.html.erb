@@ -1,8 +1,4 @@
-<div id="<%= dom_id listing %>">
-  <p>
-    <strong>User:</strong>
-    <%= listing.user_id %>
-  </p>
+<div id="<%= dom_id listing %>" class="">
 
   <p>
     <strong>Species:</strong>
@@ -32,6 +28,10 @@
   <p>
     <strong>Sold:</strong>
     <%= listing.sold %>
+  </p>
+
+  <p>
+      <%= link_to "Show this listing", listing %>
   </p>
 
 </div>
