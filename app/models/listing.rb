@@ -5,13 +5,12 @@ class Listing < ApplicationRecord
 
   has_one :purchase
   has_one :new_owner, through: :purchase, source: :user
-  
 
   def self.available_listings
-    Listing.left_outer_joins(:purchase).where(purchase: { listings_id: nil })
+    Listing.left_outer_joins(:purchase).where(purchase: { listing_id: nil })
   end
 
   def sold?
-    purchase.exists?
+    !!purchase
   end
 end

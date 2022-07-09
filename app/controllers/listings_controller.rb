@@ -7,7 +7,7 @@ class ListingsController < ApplicationController
 
   # GET /listings or /listings.json
   def index
-    @listings = Listing.all
+    @listings = Listing.available_listings
     
     unless params[:min_age].blank?
       @listings = @listings.where('age >= ?', params[:min_age])
@@ -39,6 +39,7 @@ class ListingsController < ApplicationController
   # POST /listings or /listings.json
   def create
     @listing = Listing.new(listing_params)
+    @listing.species = @listing.species.downcase
     @listing.user = current_user
 
     respond_to do |format|
@@ -49,6 +50,8 @@ class ListingsController < ApplicationController
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @listing.errors, status: :unprocessable_entity }
       end
+
+
     end
   end
 
@@ -76,12 +79,6 @@ class ListingsController < ApplicationController
   end
 
   def place_order
-    Order.create(
-      listing_id: @listing.id,
-      seller_id: @listing.user_id,
-      buyer_id: current_user.id
-    )
-    redirect_to order_success_path
 
   end
 
@@ -93,8 +90,7 @@ class ListingsController < ApplicationController
 
     def authorize_user
       if @listing.user_id != current_user.id
-        flash[:alert] = "Only the Owner can do that!"
-        redirect_to listings_path
+        redirect_to listings_path, notice:"Only the Owner can do that!"
       end
     end
     # Only allow a list of trusted parameters through.

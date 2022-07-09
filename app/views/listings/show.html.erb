@@ -6,9 +6,17 @@
   <% else %>
     <%= image_tag "https://placekitten.com/400/500", alt: @listing.name, style: "object-fit: cover; width: 100px; height: 100px" %>
   <% end %>
+  <%# <form action="/purchase" method="post" accept-charset="UTF-8">
+  <%= button_to 'purchase', purchases_path, data: { confirm: 'Are you sure?' } %>
+  <%# </form>  %>
 
-  <%= button_to "Purchase", place_order_path%>
-
+  <% unless current_user == @listing.user %>
+    <%= form_with url: purchases_path, local: true, method: :post do %>
+      <input type="hidden" value="<%= @listing.id%>" name="listing_id">
+      <input type="submit" value="Buy now">
+    <% end %>
+  <% end %>
+  
   <p>
     <strong>Species:</strong>
     <%= @listing.species %>
@@ -41,7 +49,10 @@
 </div>
 
 <div>
-  <%= link_to "Edit this listing", edit_listing_path(@listing) %> |
   <%= link_to "Back to listings", listings_path %>
-  <%= button_to "Destroy this listing", @listing, method: :delete %>
+
+  <% if current_user && current_user.id == @listing.user_id %>
+    <%= link_to "Edit this profile", edit_listing_path(@listing) %> |
+    <%= button_to "Destroy this listing", @listing, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <% end %>
 </div>
