@@ -3,6 +3,6 @@ Rails.application.routes.draw do
   devise_for :users
   root 'pets#home'
   resources :pets
-  get '/user' => "pets#index", :as => :user_root
+  get '/user' => "listings#index", :as => :user_root
 
 end
