@@ -1,0 +1,17 @@
+<h1>Pets#edit</h1>
+<p>Find me in app/views/pets/edit.html.erb</p>
+
+<%= form_with model: @pet, url: pet_path(@pet), method: :patch, local: true do |f| %>
+
+    <%= f.label :species, 'Species'%>
+    <%= f.text_field :species%>
+
+    <%= f.label :price, 'Price (Cents)'%>
+    <%= f.number_field :price%>
+
+    <%= f.label :age, 'Age'%>
+    <%= f.number_field :age%>
+    
+    <%= f.submit "Submit" %>
+
+<% end %>
